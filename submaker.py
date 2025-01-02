@@ -3,11 +3,9 @@ import subprocess
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 
-# فایل خروجی شامل ورد لیست
 OUTPUT_FILE = "wordlist.txt"
 
 def run_subfinder(domain):
-    """اجرای subfinder برای یک دامین و استخراج سابدامین‌ها"""
     try:
         result = subprocess.run(
             ["subfinder", "-d", domain, "-silent"],
@@ -19,14 +17,12 @@ def run_subfinder(domain):
         return []
 
 def extract_words(subdomains):
-    """جدا کردن کلمات از سابدامین‌ها"""
     words = set()
     for subdomain in subdomains:
         words.update(subdomain.replace('-', '.').split('.'))
     return words
 
 def process_domain(domain):
-    """پردازش یک دامین: استخراج سابدامین‌ها و کلمات"""
     print(f"[INFO] Processing: {domain}")
     subdomains = run_subfinder(domain)
     words = extract_words(subdomains)
@@ -42,14 +38,14 @@ def main(input_file, threads):
     with open(input_file, "r") as f:
         domains = [line.strip() for line in f.readlines()]
 
-    # مولتی‌تردینگ برای پردازش همزمان دامین‌ها
+    
     with ThreadPoolExecutor(max_workers=threads) as executor:
         futures = {executor.submit(process_domain, domain): domain for domain in domains}
         for future in futures:
             words = future.result()
             all_words.update(words)
 
-    # ذخیره ورد لیست در فایل خروجی
+
     with open(OUTPUT_FILE, "w") as f:
         for word in sorted(all_words):
             f.write(f"{word}\n")
