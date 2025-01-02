@@ -19,7 +19,6 @@ This tool automates the process of generating a wordlist of real subdomain keywo
 ```bash
 git clone https://github.com/llMNMll/submaker.git
 cd submaker
-run with Command 
 ```
 
 ### 🛠️ **Usage**
@@ -33,14 +32,6 @@ python3 submaker.py -file-domain input_domains.txt -threads 10
 - Python 3.x
 - Subfinder
 
-### 🤝 **Contributions**
-Contributions, issues, and feature requests are welcome! Feel free to open an issue or submit a pull request.
-
-### 📜 **License**
-This project is licensed under the MIT License.
-
 ### ⭐ **Support**
 If you find this tool useful, don't forget to star the repository and share it with others!
-
-**Happy Hunting! 🕵️‍♂️**
 
